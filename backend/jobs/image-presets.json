@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "naming": {
+    "pattern": "{name}.{ext}",
+    "normalize": {
+      "lowercase": true,
+      "replaceSpacesWith": "-",
+      "removeAccents": true,
+      "collapseDashes": true
+    }
+  },
+  "defaults": {
+    "output": {
+      "singleFile": true,
+      "recommendedFormat": "webp",
+      "allowFormatOverrides": true,
+      "removeMetadata": true
+    },
+    "quality": {
+      "photo": {
+        "webp": 78,
+        "avif": 55,
+        "jpg": 82
+      },
+      "ui": {
+        "webp": 85,
+        "png8": true
+      }
+    },
+    "resize": {
+      "noUpscale": true,
+      "density": {
+        "mode": "standard",
+        "scaleFactor": 1.33
+      }
+    },
+    "crop": {
+      "autoOnOrientationChange": true,
+      "mode": "cover",
+      "lockedAspect": true
+    }
+  },
+  "presets": [
+    { "id": "hero-xl", "label": "Hero XL (16:9)", "typeHint": "photo", "aspect": "16:9", "width": 1920, "height": 1080, "density": "suggestHigherDpi" },
+    { "id": "hero-lg", "label": "Hero LG (16:9)", "typeHint": "photo", "aspect": "16:9", "width": 1600, "height": 900, "density": "suggestHigherDpi" },
+    { "id": "content-lg", "label": "Contenido grande (3:2)", "typeHint": "photo", "aspect": "3:2", "width": 1400, "height": 933, "density": "suggestHigherDpi" },
+    { "id": "content-md", "label": "Contenido medio (4:3)", "typeHint": "photo", "aspect": "4:3", "width": 1200, "height": 900, "density": "standard" },
+    { "id": "thumb-wide", "label": "Miniatura wide (16:9)", "typeHint": "photo", "aspect": "16:9", "width": 640, "height": 360, "density": "standard" },
+    { "id": "portrait-lg", "label": "Vertical grande (3:4)", "typeHint": "photo", "aspect": "3:4", "width": 900, "height": 1200, "density": "suggestHigherDpi" },
+    { "id": "portrait-md", "label": "Vertical medio (2:3)", "typeHint": "photo", "aspect": "2:3", "width": 600, "height": 900, "density": "standard" },
+    { "id": "story", "label": "Story (9:16)", "typeHint": "photo", "aspect": "9:16", "width": 1080, "height": 1920, "density": "suggestHigherDpi" },
+    { "id": "square", "label": "Cuadrada (1:1)", "typeHint": "photo", "aspect": "1:1", "width": 800, "height": 800, "density": "standard" },
+    { "id": "panorama", "label": "Panorámica (21:9)", "typeHint": "photo", "aspect": "21:9", "width": 1920, "height": 823, "density": "standard" },
+    { "id": "logo-256", "label": "Logo raster 256", "typeHint": "ui", "aspect": "1:1", "width": 256, "height": 256, "resizeMode": "fit", "density": "standard", "recommendedFormat": "webp" },
+    { "id": "logo-512", "label": "Logo raster 512", "typeHint": "ui", "aspect": "1:1", "width": 512, "height": 512, "resizeMode": "fit", "density": "standard", "recommendedFormat": "webp" },
+    { "id": "ig-feed-1080", "label": "IG Feed 1080×1080 (1:1)", "typeHint": "photo", "aspect": "1:1", "width": 1080, "height": 1080, "density": "suggestHigherDpi" },
+    { "id": "ig-feed-4x5", "label": "IG Feed 1080×1350 (4:5)", "typeHint": "photo", "aspect": "4:5", "width": 1080, "height": 1350, "density": "suggestHigherDpi" },
+    { "id": "ig-feed-169", "label": "IG Feed 1080×566 (16:9)", "typeHint": "photo", "aspect": "16:9", "width": 1080, "height": 566, "density": "suggestHigherDpi" },
+    { "id": "ig-stories", "label": "IG Stories/Reels 1080×1920", "typeHint": "photo", "aspect": "9:16", "width": 1080, "height": 1920, "density": "suggestHigherDpi" },
+    { "id": "fb-post-1080", "label": "FB Post 1080×1080 (1:1)", "typeHint": "photo", "aspect": "1:1", "width": 1080, "height": 1080, "density": "standard" },
+    { "id": "fb-post-4x5", "label": "FB Post 1080×1359 (~4:5)", "typeHint": "photo", "aspect": "4:5", "width": 1080, "height": 1359, "density": "standard" },
+    { "id": "fb-post-191", "label": "FB Post 1080×566 (~1.91:1)", "typeHint": "photo", "aspect": "1.91:1", "width": 1080, "height": 566, "density": "standard" },
+    { "id": "fb-stories", "label": "FB Stories 1080×1920", "typeHint": "photo", "aspect": "9:16", "width": 1080, "height": 1920, "density": "suggestHigherDpi" },
+    { "id": "fb-cover", "label": "FB Cover 851×315", "typeHint": "photo", "aspect": "2.70:1", "width": 851, "height": 315, "density": "standard" },
+    { "id": "x-avatar", "label": "X Perfil 400×400", "typeHint": "ui", "aspect": "1:1", "width": 400, "height": 400, "density": "standard" },
+    { "id": "x-header", "label": "X Header 1500×500 (3:1)", "typeHint": "photo", "aspect": "3:1", "width": 1500, "height": 500, "density": "standard" },
+    { "id": "x-post-169", "label": "X Post 1280×720 (16:9)", "typeHint": "photo", "aspect": "16:9", "width": 1280, "height": 720, "density": "standard" },
+    { "id": "x-post-916", "label": "X Post 720×1280 (9:16)", "typeHint": "photo", "aspect": "9:16", "width": 720, "height": 1280, "density": "standard" },
+    { "id": "x-post-11", "label": "X Post 720×720 (1:1)", "typeHint": "photo", "aspect": "1:1", "width": 720, "height": 720, "density": "standard" },
+    { "id": "thr-post-vert", "label": "Threads Post 1440×1920 (3:4)", "typeHint": "photo", "aspect": "3:4", "width": 1440, "height": 1920, "density": "suggestHigherDpi" },
+    { "id": "thr-profile", "label": "Threads Perfil 640×640", "typeHint": "ui", "aspect": "1:1", "width": 640, "height": 640, "density": "standard" },
+    { "id": "li-post-191", "label": "LinkedIn Post 1200×627 (1.91:1)", "typeHint": "photo", "aspect": "1.91:1", "width": 1200, "height": 627, "density": "standard" },
+    { "id": "li-post-1080", "label": "LinkedIn Post 1080×1080 (1:1)", "typeHint": "photo", "aspect": "1:1", "width": 1080, "height": 1080, "density": "standard" },
+    { "id": "tt-post", "label": "TikTok Post 1080×1920 (9:16)", "typeHint": "photo", "aspect": "9:16", "width": 1080, "height": 1920, "density": "suggestHigherDpi" },
+    { "id": "yt-thumb", "label": "YouTube Thumbnail 1280×720", "typeHint": "ui", "aspect": "16:9", "width": 1280, "height": 720, "density": "standard" },
+    { "id": "pin-2x3", "label": "Pinterest 1000×1500 (2:3)", "typeHint": "photo", "aspect": "2:3", "width": 1000, "height": 1500, "density": "suggestHigherDpi" },
+    { "id": "sc-story", "label": "Snapchat Story 1080×1920", "typeHint": "photo", "aspect": "9:16", "width": 1080, "height": 1920, "density": "suggestHigherDpi" }
+  ]
+}

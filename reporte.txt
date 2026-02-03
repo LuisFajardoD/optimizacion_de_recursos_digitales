@@ -1,0 +1,74 @@
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\config\__init__.py | Inicializa el paquete Python (archivo vacío).
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\config\asgi.py | Módulo Python (sin clases/funciones detectables).
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\config\settings.py | Módulo Python (sin clases/funciones detectables).
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\config\urls.py | Módulo Python (sin clases/funciones detectables).
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\config\wsgi.py | Módulo Python (sin clases/funciones detectables).
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\db.sqlite3 | Base de datos SQLite local.
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\__init__.py | Inicializa el paquete Python (archivo vacío).
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\admin.py | Clases: JobAdmin, JobFileAdmin
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\apps.py | Clases: JobsConfig
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\crop_regression_test.py | Funciones: _setup_django, _assert_square, _run_case, main
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\image-presets.json | Catálogo de presets de imagen (version, defaults, presets).
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\management\__init__.py | Inicializa el paquete Python (archivo vacío).
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\management\commands\__init__.py | Inicializa el paquete Python (archivo vacío).
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\management\commands\worker.py | Clases: Command
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\migrations\__init__.py | Inicializa el paquete Python (archivo vacío).
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\migrations\0001_initial.py | Clases: Migration
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\migrations\0002_alter_job_preset.py | Clases: Migration
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\migrations\0003_jobfile_crop_fields.py | Clases: Migration
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\migrations\0004_jobfile_analysis_fields.py | Clases: Migration
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\migrations\0005_jobfile_recommendation_fields.py | Clases: Migration
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\migrations\0006_jobfile_override_fields.py | Clases: Migration
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\migrations\0007_jobfile_crop_enabled.py | Clases: Migration
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\migrations\0008_appsettings_and_job_status.py | Clases: Migration
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\migrations\0009_alter_appsettings_id_alter_job_status.py | Clases: Migration
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\migrations\0010_jobfile_output_dimensions.py | Clases: Migration
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\migrations\0011_jobfile_output_variants.py | Clases: Migration
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\migrations\0012_jobfile_report_flags.py | Clases: Migration
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\migrations\0013_job_error_message.py | Clases: Migration
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\migrations\0014_appsettings_and_presetcustom.py | Clases: Migration
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\migrations\0015_appsettings_concurrency_default.py | Clases: Migration
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\models.py | Clases: Job, JobFile, AppSettings, PresetCustom
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\presets.py | Funciones: load_presets, get_preset, list_presets_response, infer_category, _infer_category, _serialize_custom
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\serializers.py | Clases: JobFileSerializer, JobSerializer, JobDetailSerializer, AppSettingsSerializer
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\services.py | Funciones: _human_error_message, process_job, reprocess_job_file, reprocess_job, _prepare_image, _apply_manual_crop, _ensure_mode, _merge_notes, _resize_contain, _resize_cover, _render_image, _resolve_format, _resolve_quality, _resolve_resize_mode, _build_output_name, _build_output_base_name, _ensure_unique_name, _build_report_row, _process_job_file, _save_job_file_output, _save_extra_output, _extract_crop_data, _derive_report_meta, _collect_report_rows, _analyze_image, _save_analysis, _save_recommendation, _orientation_from_size, _closest_aspect_label, _detect_transparency, _infer_type, _detect_metadata_tags, _extract_metadata_payload, _build_recommendation, _recommend_formats_and_quality, _recommend_preset, _recommend_crop_mode, _build_zip, _format_bytes, _format_dims, _status_label, _yes_no, _translate_mode, _translate_type, _report_table_data, _build_report_txt, _build_report_csv, _format_quality, _format_outputs, _normalize_name, _resolve_effective_settings, _resolve_effective_preset, _resolve_effective_format, _resolve_effective_formats, _resolve_primary_format, _resolve_effective_quality, _apply_transparency_rules
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\tests.py | Módulo Python (sin clases/funciones detectables).
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\urls.py | Módulo Python (sin clases/funciones detectables).
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\jobs\views.py | Clases: JobViewSet Funciones: presets_view, settings_view, job_file_crop_view, job_file_update_view, job_file_reprocess_view, presets_custom_create, presets_custom_update, presets_custom_duplicate, _validate_preset_payload, _next_custom_id, _serialize_custom_preset
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\manage.py | Funciones: main
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\backend\requirements.txt | Archivo del proyecto (tipo no clasificado).
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\docs\arquitectura.md | Documento: Arquitectura - Proyecto VIII
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\docs\backlog.md | Documento: Backlog MVP
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\frontend\eslint.config.js | Archivo del proyecto (tipo no clasificado).
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\frontend\index.html | Plantilla HTML base de Vite.
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\frontend\package-lock.json | Archivo JSON de configuración/datos.
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\frontend\package.json | Metadatos del frontend y scripts npm: build, dev, dev:all, lint, preview.
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\frontend\public\vite.svg | Imagen SVG usada como asset.
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\frontend\README.md | Documento: React + TypeScript + Vite
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\frontend\src\App.css | Estilos globales del frontend.
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\frontend\src\App.tsx | Componente React: App. Protege rutas según autenticación. Incluye cierre de sesión.
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\frontend\src\assets\react.svg | Imagen SVG usada como asset.
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\frontend\src\assets\udg\udg-logo-dark.png | Imagen PNG usada como asset.
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\frontend\src\assets\udg\udg-logo-light.png | Imagen PNG usada como asset.
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\frontend\src\components\ConfirmModal.tsx | Componente React: ConfirmModal.
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\frontend\src\components\CropModal.tsx | Componente React: CropModal.
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\frontend\src\components\LogoutButton.tsx | Componente React: LogoutButton. Incluye cierre de sesión.
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\frontend\src\components\ProtectedRoute.tsx | Componente React: ProtectedRoute. Protege rutas según autenticación.
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\frontend\src\index.css | Estilos globales del frontend.
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\frontend\src\main.tsx | Componente React: main.
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\frontend\src\pages\JobDetailPage.tsx | Componente React: JobDetailPage. Carga presets desde la API. Muestra detalle del trabajo. Permite descargar ZIP de resultados.
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\frontend\src\pages\JobsPage.tsx | Componente React: JobsPage. Carga presets desde la API. Lista trabajos y actualiza estado.
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\frontend\src\pages\LoginPage.tsx | Componente React: LoginPage.
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\frontend\src\pages\SettingsPage.tsx | Componente React: SettingsPage. Carga presets desde la API.
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\frontend\src\pages\UploadPage.tsx | Componente React: UploadPage. Crea trabajos desde carga de imágenes. Carga presets desde la API.
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\frontend\src\services\api.ts | Módulo TypeScript: api. Exporta: listJobs, getJob, createJob, fetchPresets, buildDownloadUrl, patchCrop, reprocessFile, updateJobFile, reprocessJob, pauseJob, resumeJob, cancelJob, deleteJob, getSettings, updateSettings, createCustomPreset, updateCustomPreset, duplicateCustomPreset, deleteCustomPreset.
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\frontend\src\services\auth.ts | Módulo TypeScript: auth. Exporta: isAuthenticated, loginDemo, logout, subscribeAuth, useAuth.
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\frontend\src\services\i18n.ts | Módulo TypeScript: i18n. Exporta: getLocale, setLocale, useI18n, resolveErrorMessage.
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\frontend\tsconfig.app.json | Configuración de TypeScript.
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\frontend\tsconfig.json | Configuración de TypeScript.
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\frontend\tsconfig.node.json | Configuración de TypeScript.
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\frontend\vite.config.ts | Módulo TypeScript: vite.config.
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\informe_plataforma.txt | Archivo del proyecto (tipo no clasificado).
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\README.md | Documento: Optimizacion de Recursos Digitales - Proyecto VIII
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\reporte.txt | Archivo del proyecto (tipo no clasificado).
+C:\Users\yasma\Documents\optimizacion_de_recursos_digitales\start-dev.ps1 | Script de desarrollo que inicia: backend, worker.

@@ -1,0 +1,308 @@
+INFORME COMPLETO DE FUNCIONALIDADES — PLATAFORMA WEB “OPTIMIZADOR DIGITAL”
+
+Contenido
+1) Descripción general
+2) Arquitectura y componentes
+3) Flujo principal de uso (end‑to‑end)
+4) Backend (Django + DRF)
+   4.1) Modelos principales
+   4.2) Endpoints disponibles
+   4.3) Validaciones y límites
+   4.4) Procesamiento de imágenes
+   4.5) Recorte y resize
+   4.6) Formatos y variantes
+   4.7) Metadatos y transparencia
+   4.8) Análisis automático por imagen
+   4.9) Recomendaciones automáticas
+   4.10) Ajustes por archivo (overrides)
+   4.11) Reportes y ZIP
+   4.12) Logs y manejo de errores
+5) Worker local
+6) Frontend (React + Vite + TS)
+   6.1) Navegación y vistas
+   6.2) Subida de archivos
+   6.3) Cola de procesamiento
+   6.4) Detalle de trabajo y ajustes por archivo
+   6.5) Recorte manual y vista previa
+   6.6) Reprocesado por archivo
+   6.7) Snippet HTML
+   6.8) Configuración de columnas y comparativos
+   6.9) Configuración de la aplicación
+   6.10) Presets personalizados (CRUD)
+   6.11) Internacionalización
+7) Reglas de negocio clave
+8) Salidas finales y entregables al usuario
+9) Consideraciones operativas
+
+
+1) Descripción general
+La plataforma es un optimizador de imágenes con un flujo de “jobs” (trabajos) que procesa lotes de archivos con presets predefinidos. Permite analizar cada imagen, aplicar ajustes automáticos o manuales, recortar con relación de aspecto fija, generar salidas en distintos formatos, descargar un ZIP con resultados y un reporte legible, y administrar la cola de procesamiento.
+
+
+2) Arquitectura y componentes
+- Frontend: React + Vite + TypeScript. UI en español, soporte de idioma alternativo.
+- Backend: Django + Django REST Framework (DRF). API REST para jobs, presets, configuración y archivos.
+- Worker local: comando de Django que procesa jobs en segundo plano sin Celery/Redis.
+
+
+3) Flujo principal de uso (end‑to‑end)
+1) El usuario sube imágenes y selecciona un preset.
+2) Se crea uno o varios jobs (máximo 10 imágenes por job; si hay más se generan jobs adicionales).
+3) El worker toma jobs pendientes y procesa cada archivo:
+   - analiza la imagen,
+   - aplica recorte/resize según preset y ajustes,
+   - genera archivos optimizados (y variantes si aplica),
+   - genera reporte y ZIP final.
+4) La UI actualiza el estado del job y permite descargar el ZIP.
+5) El usuario puede ajustar un archivo y reprocesarlo para reflejar cambios.
+
+
+4) Backend (Django + DRF)
+
+4.1) Modelos principales
+- Job:
+  - Representa un lote de procesamiento.
+  - Campos: preset, estado, progreso, total/processed, timestamps, ZIP final y error_message.
+
+- JobFile:
+  - Representa cada imagen del job.
+  - Almacena archivo original y salida, métricas de análisis, flags y ajustes por archivo.
+  - Soporta recorte manual, formatos múltiples, variantes (1x/2x), naming, metadatos y transparencia.
+
+- AppSettings:
+  - Configuración global (concurrencia, defaults de metadatos y transparencia, detalle de errores).
+
+- PresetCustom:
+  - Presets personalizados creados en la plataforma sin modificar el JSON base.
+
+
+4.2) Endpoints disponibles
+Rutas base de jobs (no se modifican):
+- POST /api/jobs/ (multipart)
+- GET /api/jobs/
+- GET /api/jobs/{id}/
+- GET /api/jobs/{id}/download/
+
+Endpoints adicionales:
+- POST /api/jobs/{id}/reprocess/
+- POST /api/jobs/{id}/pause/
+- POST /api/jobs/{id}/resume/
+- POST /api/jobs/{id}/cancel/
+
+Archivos por job:
+- PATCH /api/job-files/{id}/
+- PATCH /api/job-files/{id}/crop/
+- POST /api/job-files/{id}/reprocess/
+
+Presets:
+- GET /api/presets/
+- POST /api/presets/custom/
+- PATCH /api/presets/custom/{id}/
+- POST /api/presets/custom/{id}/duplicate/
+- DELETE /api/presets/custom/{id}/
+
+Configuración global:
+- GET /api/settings/
+- PATCH /api/settings/
+
+
+4.3) Validaciones y límites
+- Límite por archivo (tamaño máximo en MB).
+- Límite por job (tamaño total).
+- Límite por imagen (megapíxeles máximos). 
+- Tipos de archivo permitidos: JPG/PNG/WEBP.
+- Errores con mensajes en español y controlados.
+
+
+4.4) Procesamiento de imágenes
+Por archivo:
+1) Apertura segura de imagen.
+2) Análisis automático (dimensiones, orientación, transparencia, metadatos, tipo foto/UI).
+3) Recomendaciones (preset, formato, calidad, modo de recorte recomendado).
+4) Resolución de ajustes efectivos (override > preset del job > recomendación > defaults).
+5) Preparación de imagen (recorte manual opcional, resize contain/cover, no-upscale).
+6) Render por formato con calidad y metadatos según configuración.
+7) Guardado de resultados, actualización de estado y métricas del JobFile.
+
+
+4.5) Recorte y resize
+- Modos soportados:
+  - CONTAIN: encaja dentro del tamaño objetivo sin recortar.
+  - COVER: llena el rectángulo y recorta sobrante (center crop).
+- Regla “no upscaling”: si el original es menor al target, no se agranda. En cover se degrada a contain.
+- Recorte manual:
+  - Coordenadas normalizadas (0..1) por archivo.
+  - Se aplica antes del resize final.
+  - Mantiene relación de aspecto definida por preset efectivo.
+
+
+4.6) Formatos y variantes
+- Formatos soportados en producción: WebP, JPG, PNG.
+- AVIF rechazado con error claro si llega en payload.
+- Múltiples formatos opcionales por archivo:
+  - El ZIP incluye todas las salidas generadas.
+  - Se mantiene un “formato principal” para UI y snippet.
+- Variantes de escala:
+  - 1x (normal)
+  - 2x (retina) si el original lo permite sin upscale
+  - “Más nítido” (escala interna 1.25–1.5x) sin crear archivo extra
+
+
+4.7) Metadatos y transparencia
+- Metadatos:
+  - Por defecto se eliminan en la exportación.
+  - Opción por archivo para conservar cuando sea posible.
+- Transparencia:
+  - Se preserva si el formato lo soporta (PNG/WebP).
+  - Si se fuerza JPG y hay alpha, se aplica fondo blanco y se reporta la pérdida.
+
+
+4.8) Análisis automático por imagen
+Campos calculados y guardados:
+- width/height originales.
+- orientación (HORIZONTAL, VERTICAL, CUADRADA).
+- aspect aproximado (16:9, 1:1, 4:5, 9:16, etc.).
+- transparencia (true/false).
+- tipo heurístico (photo / ui).
+- metadatos detectados (EXIF, ICC, XMP, etc.).
+
+
+4.9) Recomendaciones automáticas
+- Preset sugerido por archivo (usando análisis y catálogo).
+- Formatos sugeridos:
+  - photo sin transparencia: AVIF + WebP (solo sugerencia, AVIF no se genera).
+  - UI o transparencia: WebP/PNG.
+- Calidad sugerida según defaults.
+- Recorte recomendado (cover) si hay cambio fuerte de orientación.
+
+
+4.10) Ajustes por archivo (overrides)
+Cada archivo puede sobreescribir:
+- preset efectivo
+- formato(s) de salida
+- calidad webp/jpg
+- mantener metadatos
+- mantener transparencia
+- naming y normalización
+- recorte habilitado y coordenadas
+- generación 2x o más nítido
+
+
+4.11) Reportes y ZIP
+- Descarga ZIP con:
+  - archivos optimizados
+  - reporte.txt legible
+  - reporte.csv para hojas de cálculo
+- Reporte incluye:
+  - tamaños antes/después
+  - dimensiones
+  - formato final
+  - recorte aplicado
+  - metadatos eliminados
+  - resumen de ahorro total y promedio
+
+
+4.12) Logs y manejo de errores
+- Mensajes de error amigables en español.
+- Modo depuración opcional agrega detalle técnico corto.
+- Errores por archivo no detienen el job completo.
+
+
+5) Worker local
+- Procesa jobs pendientes en segundo plano.
+- Concurrencia configurable (1–10) desde settings.
+- Pausa/reanuda/cancela jobs.
+- Respeta estados para no duplicar procesos.
+
+
+6) Frontend (React + Vite + TS)
+
+6.1) Navegación y vistas
+- Subir imágenes
+- Cola de procesamiento (listado)
+- Detalle de trabajo
+- Configuración
+
+
+6.2) Subida de archivos
+- Selector de presets por categoría.
+- Drag & drop.
+- Límite 10 archivos por job (crea múltiples jobs si se excede).
+- Errores amigables al validar.
+
+
+6.3) Cola de procesamiento
+- Lista de jobs con estado y progreso.
+- Barra de avance.
+- Acciones: pausar, reanudar, cancelar.
+- Selector de concurrencia global.
+
+
+6.4) Detalle de trabajo y ajustes por archivo
+- Vista previa de original y optimizado.
+- Ajustes por archivo con defaults sugeridos.
+- Campos editables con indicador de cambios pendientes.
+- Botón “Aplicar ajustes” reprocesa el archivo.
+
+
+6.5) Recorte manual y vista previa
+- Modal con marco de recorte resizable y movible.
+- Aspect ratio bloqueado según preset.
+- Guardado de recorte para reproceso.
+
+
+6.6) Reprocesado por archivo
+- Reprocesa un archivo puntual usando los ajustes actuales.
+- Actualiza ZIP y métricas del job.
+
+
+6.7) Snippet HTML
+- Genera <img> o <picture> según formatos/variantes.
+- Base path configurable y persistente.
+- Copiar snippet individual o masivo.
+
+
+6.8) Configuración de columnas y comparativos
+- Tabla con columnas configurables.
+- Copiar resumen y tabla (TSV).
+- Umbral de ahorro bajo con resaltado.
+
+
+6.9) Configuración de la aplicación
+- Tema claro/oscuro.
+- Idioma (ES/EN).
+- Concurrencia.
+- Defaults de metadatos/transparencia.
+
+
+6.10) Presets personalizados (CRUD)
+- Crear, editar, duplicar, eliminar presets.
+- Aparecen en el selector de presets del frontend.
+
+
+6.11) Internacionalización
+- UI en español con opción inglés.
+- Mensajes de error controlados en español.
+
+
+7) Reglas de negocio clave
+- No upscaling: nunca se agranda más allá del original.
+- Cover para redes sociales cuando aplica; contain para web si no hay indicación.
+- Recorte manual tiene prioridad sobre recorte automático.
+- Metadatos removidos por defecto.
+- Transparencia conservada si el formato lo permite.
+
+
+8) Salidas finales y entregables al usuario
+- Archivos optimizados listos para uso.
+- ZIP con todos los outputs y reportes.
+- Snippets HTML para integrar fácilmente en web.
+
+
+9) Consideraciones operativas
+- Worker local: se inicia con el comando de Django.
+- Frontend y backend corren en procesos separados.
+- Concurrencia ajustable según capacidad del equipo.
+- Logs muestran job y estado para depuración.
+
+Fin del informe.
